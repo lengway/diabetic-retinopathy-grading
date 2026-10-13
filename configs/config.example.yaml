@@ -1,0 +1,23 @@
+# Пример конфигурации. Скопируйте в configs/<name>.local.yaml и правьте локально.
+
+data:
+  root: data/
+  train: aptos2019
+  external: [idrid, messidor2]
+  image_size: 384
+  preprocessing: [circle_crop, ben_graham]
+
+model:
+  backbone: efficientnet_b0   # resnet50 | efficientnet_b0..b3
+  pretrained: true
+  head: regression            # classification | regression (ordinal)
+
+train:
+  epochs: 20
+  batch_size: 16
+  lr: 3.0e-4
+  seed: 42
+  device: auto                # auto | cuda | mps | cpu
+
+output:
+  dir: runs/

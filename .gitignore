@@ -1,0 +1,40 @@
+# Локальный контекст (не для репозитория)
+CLAUDE.md
+.claude/
+
+# Данные и артефакты обучения
+data/*
+!data/README.md
+checkpoints/
+runs/
+wandb/
+mlruns/
+*.pt
+*.pth
+*.onnx
+*.ckpt
+
+# Секреты и локальные конфиги
+.env
+.env.*
+!.env.example
+configs/*.local.yaml
+kaggle.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+build/
+dist/
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
