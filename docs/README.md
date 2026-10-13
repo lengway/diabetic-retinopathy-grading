@@ -11,6 +11,7 @@
 | Архитектура и диаграммы | [../diagrams/](../diagrams/) | — |
 | Макеты UX | ux/ | — |
 | План верификации | verification-plan.md | — |
+| План работы (до 24.10 и этапы) | [work-plan.md](work-plan.md) | v0.1 |
 | Управление проектом и риски | project-management.md | — |
 | Замечания руководителя | supervisor-feedback.md | — |
 | Архитектурные решения | [adr/](adr/) | шаблон |
