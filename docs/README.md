@@ -2,7 +2,7 @@
 
 | Документ | Файл | Статус |
 |----------|------|--------|
-| Project proposal и scope | [proposal.md](proposal.md) | в работе |
+| Project proposal и scope | [proposal.md](proposal.md) | v0.1 |
 | Evidence of relevance (встречи) | [meetings/](meetings/) | — |
 | Обзор литературы | literature-review.md | — |
 | Сравнение существующих систем | systems-comparison.md | — |
