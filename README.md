@@ -62,7 +62,7 @@ data/               локальные данные (в git не попадаю�
 
 ## Ссылки
 
-- Задачи: YouTrack — _ссылка будет добавлена_
+- Задачи: [YouTrack, проект DIP](https://diabeticretinopathygrading.youtrack.cloud/projects/DIP)
 - Документация: [docs/](docs/)
 
 ## Запуск
