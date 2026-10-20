@@ -1,0 +1,8 @@
+flowchart LR
+ UI[Web UI] -->|файл| API[FastAPI / валидация]
+ API -->|RGB| PRE[Предобработка]
+ PRE -->|tensor| CNN[PyTorch CNN и Grad-CAM]
+ CNN -->|logits и карта| POST[Постобработка / T / порог]
+ POST -->|JSON| OUT[Экран результата]
+ ART[Артефакты версии] -->|веса| CNN
+ ART -->|T и порог| POST
