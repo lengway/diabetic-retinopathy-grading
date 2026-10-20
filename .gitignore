@@ -38,3 +38,6 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Temporary PDF renders
+tmp/
