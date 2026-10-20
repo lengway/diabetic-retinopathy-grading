@@ -7,8 +7,11 @@ FONT='/System/Library/Fonts/Supplemental/Arial.ttf'
 BOLD='/System/Library/Fonts/Supplemental/Arial Bold.ttf'
 def font(n=23,b=False): return ImageFont.truetype(BOLD if b else FONT,n)
 def diagram(name,title,nodes,edges,mermaid):
- spec={'title':title,'nodes':nodes,'edges':edges}
- (ROOT/f'diagrams/src/{name}.json').write_text(json.dumps(spec,ensure_ascii=False,indent=2))
+ specpath=ROOT/f'diagrams/src/{name}.json'
+ if specpath.exists():
+  spec=json.loads(specpath.read_text());title,nodes,edges=spec['title'],spec['nodes'],spec['edges']
+ else:
+  spec={'title':title,'nodes':nodes,'edges':edges};specpath.write_text(json.dumps(spec,ensure_ascii=False,indent=2))
  (ROOT/f'diagrams/src/{name}.mmd').write_text(mermaid+'\n')
  im=Image.new('RGB',(1400,850),'#f6f8fc'); d=ImageDraw.Draw(im)
  d.text((55,35),title,font=font(31,True),fill='#142d45')

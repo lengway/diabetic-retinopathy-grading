@@ -15,6 +15,7 @@ pdfmetrics.registerFontFamily('Arial',normal='Arial',bold='Arial-Bold',italic='A
 styles=getSampleStyleSheet()
 styles.add(ParagraphStyle(name='BodyRU',fontName='Arial',fontSize=9.3,leading=13.2,spaceAfter=7,splitLongWords=True))
 styles.add(ParagraphStyle(name='SmallRU',parent=styles['BodyRU'],fontSize=7.5,leading=10,spaceAfter=2))
+styles.add(ParagraphStyle(name='RefRU',parent=styles['BodyRU'],fontSize=8.4,leading=11.5,spaceAfter=6))
 styles.add(ParagraphStyle(name='H1RU',fontName='Arial-Bold',fontSize=18,leading=23,spaceAfter=14,spaceBefore=9,keepWithNext=True))
 styles.add(ParagraphStyle(name='H2RU',fontName='Arial-Bold',fontSize=12,leading=16,spaceAfter=8,spaceBefore=10,keepWithNext=True))
 styles.add(ParagraphStyle(name='TitleRU',fontName='Arial-Bold',fontSize=23,leading=30,alignment=TA_CENTER,spaceAfter=22))
@@ -30,13 +31,15 @@ def clean(s):
  return s
 
 def para(s,style='BodyRU'): return Paragraph(clean(s),styles[style])
-def picture(path,maxh=350):
+def picture(path,maxh=350,maxw=None):
  with PILImage.open(path) as im: iw,ih=im.size
- scale=min(WIDTH/iw,maxh/ih);return Image(str(path),width=iw*scale,height=ih*scale)
+ scale=min((maxw or WIDTH)/iw,maxh/ih);return Image(str(path),width=iw*scale,height=ih*scale)
 def md(path):
  lines=path.read_text().splitlines(); items=[];i=0;buf=[];code=False
  def flush():
-  if buf:items.append(para(' '.join(buf)));buf.clear()
+  if buf:
+   st='RefRU' if re.match(r'^\[[LST]\d',buf[0]) else 'BodyRU'
+   items.append(para(' '.join(buf),st));buf.clear()
  while i<len(lines):
   s=lines[i].strip()
   if s.startswith('```'): flush();code=not code;i+=1;continue
@@ -65,12 +68,14 @@ def md(path):
   elif s.startswith('- '):flush();items.append(para('• '+s[2:]))
   else:buf.append(s)
   i+=1
- flush();return items
+ flush()
+ while items and isinstance(items[-1],Spacer):items.pop()
+ return items
 
 def footer(c,doc):
- c.saveState();c.setFont('Arial',8);c.setFillColor(colors.HexColor('#617686'));c.drawString(50,27,'Кутбеев Р.В. | Апробация | 20.10.2026');c.drawRightString(W-50,27,str(doc.page));c.restoreState()
-def build(name,story):
- SimpleDocTemplate(str(OUT/name),pagesize=(W,H),rightMargin=50,leftMargin=50,topMargin=45,bottomMargin=46,title=name[:-4],author='Кутбеев Роман Владимирович',allowSplitting=True).build(story,onFirstPage=footer,onLaterPages=footer)
+ c.saveState();c.setFont('Arial',8);c.setFillColor(colors.HexColor('#617686'));c.drawString(50,27,'Кутбеев Р.В. | Апробация | 20.10.2026');c.drawRightString(doc.pagesize[0]-50,27,str(doc.page));c.restoreState()
+def build(name,story,pagesize=None):
+ SimpleDocTemplate(str(OUT/name),pagesize=pagesize or (W,H),rightMargin=50,leftMargin=50,topMargin=45,bottomMargin=46,title=name[:-4],author='Кутбеев Роман Владимирович',allowSplitting=True).build(story,onFirstPage=footer,onLaterPages=footer)
 files=['docs/proposal.md','docs/evidence-of-relevance.md','docs/literature-review.md','docs/systems-comparison.md','docs/technology-comparison.md','docs/requirements.md','docs/architecture.md','docs/ux/README.md','docs/verification-plan.md','docs/project-management.md','docs/supervisor-feedback.md','docs/data-plan.md','docs/submission/README.md']
 story=[Spacer(1,50),para('Astana IT University','H2RU'),para('Школа программной инженерии'),Spacer(1,35),para('ОТЧЁТ К АПРОБАЦИОННОМУ ПЕРИОДУ','TitleRU'),para('Разработка интеллектуального ассистента для градации диабетической ретинопатии по снимкам глазного дна','H1RU'),Spacer(1,25),para('Исполнитель: Кутбеев Роман Владимирович, SE-2404'),para('Руководитель: Турарова Маржан Кабдыкалиевна'),para('Индивидуальный дипломный проект • Software Engineering'),Spacer(1,25),para('Рабочая версия 0.2 от 20 октября 2026 года. Подготовлены аналитические и проектные материалы. Пользовательские беседы, EDA и новый отзыв руководителя остаются открытыми. Реализация модели и сервиса запланирована.'),para('Исследовательский прототип. Не предназначен для клинической диагностики.'),Spacer(1,18),para('Астана, 2026'),PageBreak(),para('Состав отчёта','H1RU')]
 for i,n in enumerate(files):
@@ -84,6 +89,6 @@ shots=sorted((ROOT/'docs/submission/screenshots').glob('*.png'))
 if shots:
  s=[para('YouTrack: доска и задачи','H1RU'),para('Кутбеев Роман Владимирович, SE-2404. Проект DIP. Реальные снимки интерфейса от 20.10.2026. На снимках отражены состояния задач на момент съёмки; незавершённые задачи не выдаются за выполненные.'),para('https://diabeticretinopathygrading.youtrack.cloud/agiles/204-1/current'),para('Доступ комиссии к сайту и отдельным задачам нужно проверить отдельно. Скриншоты не заменяют доступ по ссылке.')]
  for f in shots:
-  s.extend([PageBreak(),para(f.stem,'H2RU'),picture(f,640)])
- build('YouTrack_Кутбеев_2026-10-20.pdf',s)
+  s.extend([PageBreak(),para(f.stem,'H2RU'),picture(f,420,740)])
+ build('YouTrack_Кутбеев_2026-10-20.pdf',s,pagesize=(841.89,595.28))
 print('Built report; screenshot pages:',len(shots))
