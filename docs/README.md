@@ -14,7 +14,7 @@ Content status: 20 October 2026. English version: 24 October 2026. Draft documen
 | 8 | Mockups | [ux/README.md](ux/README.md) | Upload, illustrative result, error |
 | 9 | Verification | [verification-plan.md](verification-plan.md) | Protocol; no experiments |
 | 10 | Management and risks | [project-management.md](project-management.md) | Milestones, 10 risks, dependencies |
-| 11 | Supervisor feedback | [supervisor-feedback.md](supervisor-feedback.md) | No new feedback |
+| 11 | Supervisor feedback | [supervisor-feedback.md](supervisor-feedback.md) | Supervisor's comment received on 24 October and added to the report |
 
 Additional materials: [data plan](data-plan.md), [work plan](work-plan.md), [interview template](meetings/template.md), [ADRs](adr/), [submission package](submission/README.md).
 
