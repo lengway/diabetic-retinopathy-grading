@@ -1,5 +1,5 @@
 {
-  "title": "Контекст системы",
+  "title": "System Context",
   "nodes": [
     [
       60,
@@ -7,8 +7,8 @@
       280,
       130,
       [
-        "Врач / оператор",
-        "Загрузка и просмотр"
+        "Clinician / operator",
+        "Upload and inspect"
       ]
     ],
     [
@@ -18,8 +18,8 @@
       160,
       [
         "DR Grading Assistant",
-        "Градация • уверенность",
-        "Бинарный флаг • карта"
+        "Grade | Confidence",
+        "Binary flag | Heatmap"
       ]
     ],
     [
@@ -28,8 +28,8 @@
       290,
       130,
       [
-        "Автор проекта",
-        "Обучение и проверка"
+        "Project author",
+        "Training and evaluation"
       ]
     ],
     [
@@ -38,7 +38,7 @@
       380,
       130,
       [
-        "Открытые наборы данных",
+        "Public datasets",
         "APTOS / EyePACS",
         "IDRiD / Messidor-2"
       ]
@@ -50,28 +50,28 @@
       280,
       500,
       280,
-      "снимок"
+      "image"
     ],
     [
       500,
       340,
       340,
       340,
-      "ответ"
+      "response"
     ],
     [
       1050,
       280,
       880,
       280,
-      "версия модели"
+      "model version"
     ],
     [
       690,
       570,
       690,
       380,
-      "offline-оценка"
+      "Offline evaluation"
     ]
   ]
 }

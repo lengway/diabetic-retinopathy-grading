@@ -1,43 +1,43 @@
-# 6. Спецификация требований
+# 6. Requirements Specification
 
-Версия 0.2, 20.10.2026. DIP-8. Проект требований для исследовательского прототипа; пользовательская валидация ожидается. Ответственный: Кутбеев Роман Владимирович.
+Version 0.2, 20 October 2026. DIP-8. Draft requirements for a research prototype; user validation is pending. Owner: Roman Vladimirovich Kutbeyev.
 
-## Сценарий и термины
+## Workflow and Terminology
 
-Оператор загружает один цветной снимок глазного дна из разрешённого обезличенного набора. Система проверяет файл, выполняет предобработку и возвращает исследовательскую оценку. Стадии ICDR: 0 — без признаков ДР; 1 — лёгкая; 2 — умеренная; 3 — тяжёлая непролиферативная; 4 — пролиферативная [L02]. DR >= 2 — определение бинарной исследовательской метки в этом проекте. Она не включает отдельное выявление диабетического макулярного отёка и не эквивалентна всему клиническому решению о направлении.
+An operator uploads one colour fundus image from an authorised de-identified dataset. The system validates and preprocesses the file and returns a research assessment. ICDR grades: 0, no apparent DR; 1, mild; 2, moderate; 3, severe non-proliferative; 4, proliferative [L02]. DR >= 2 defines this project's binary research label. It excludes independent diabetic macular oedema detection and is not the complete clinical referral decision.
 
-## Функциональные требования
+## Functional Requirements
 
-| ID | Приоритет | Требование | Критерий приёмки |
+| ID | Priority | Requirement | Acceptance criterion |
 |---|---|---|---|
-| FR-01 | Must | Загрузка одного JPG/PNG, до 20 MiB | валидные RGB и grayscale декодируются и приводятся к RGB; файл 20 MiB + 1 байт отклоняется; расширение без корректного содержимого не принимается |
-| FR-02 | Must | Проверка декодирования и размеров | пустой/повреждённый файл даёт ошибку 422; неподдерживаемый формат 415; превышение 40 млн пикселей или 20 MiB даёт 413; модель при этом не вызывается |
-| FR-03 | Must | Градация 0–4 | ответ содержит целое grade в 0..4, пять конечных вероятностей в [0,1], сумма с допуском 1e-5 равна 1; grade = argmax |
-| FR-04 | Must | Бинарный флаг исследования | score = сумма p2+p3+p4; flag = score >= threshold; threshold и его версия входят в ответ; правило не подменяется grade >= 2 |
-| FR-05 | Must | Уверенность с описанием | отображается max(p), состояние калибровки; подпись «оценка модели, не вероятность здоровья»; до калибровки явная пометка |
-| FR-06 | Should | Grad-CAM для CNN | карта наложена на тот же снимок после обратного преобразования геометрии; указан выбранный класс; при ошибке карты стадия сохраняется и выводится предупреждение |
-| FR-07 | Must | Исследовательское назначение | предупреждение присутствует на экранах загрузки и результата; текст отрицательного флага не обещает отсутствие других заболеваний |
-| FR-08 | Must | Управление состоянием | видны загрузка, обработка, результат и ошибка; во время обработки нет повторной отправки; после нового файла прежний ответ скрывается |
-| FR-09 | Must | Идентификация результата | API возвращает model_version, preprocessing_version, request_id и threshold; те же версии сохраняются в локальном отчёте эксперимента |
-| FR-10 | Could | Автоматическая оценка пригодности | реализуется только после определения независимой разметки качества и порога; до этого интерфейс не заявляет клиническую оценку пригодности |
+| FR-01 | Must | Upload one JPG/PNG, up to 20 MiB | Valid RGB/grayscale images decode to RGB; 20 MiB + 1 byte is rejected; a valid extension alone is insufficient |
+| FR-02 | Must | Validate decoding and dimensions | Empty/corrupt file: 422; unsupported format: 415; over 40 million pixels or 20 MiB: 413; no model invocation |
+| FR-03 | Must | Grade 0-4 | Integer grade in 0..4; five finite probabilities in [0,1], sum 1 within 1e-5; grade = argmax |
+| FR-04 | Must | Binary research flag | score = p2+p3+p4; flag = score >= threshold; response includes threshold and its version; do not replace rule with grade >= 2 |
+| FR-05 | Must | Explain confidence | Display max(p), calibration status and 'model estimate, not probability of being healthy'; explicitly mark uncalibrated output |
+| FR-06 | Should | CNN Grad-CAM | Overlay on the same image after reversing geometric transforms; identify selected class; map failure preserves grade and produces a warning |
+| FR-07 | Must | Research-use statement | Warning on upload/result screens; a negative flag does not promise absence of other diseases |
+| FR-08 | Must | State management | Upload, processing, result and error states visible; prevent resubmission during processing; hide old output after new file selection |
+| FR-09 | Must | Result identification | API returns model_version, preprocessing_version, request_id and threshold; experiment report retains the same versions |
+| FR-10 | Could | Automatic gradability assessment | Implement only after independent quality labels and a threshold are defined; no clinical gradability claim beforehand |
 
-## Нефункциональные требования
+## Non-functional Requirements
 
-| ID | Приоритет | Требование | Критерий приёмки |
+| ID | Priority | Requirement | Acceptance criterion |
 |---|---|---|---|
-| NFR-01 | Must | Воспроизводимость | сохранены split-манифест, seed, SHA-256 данных, версии зависимостей и веса; повторная оценка тех же весов отличается по QWK не более 0,001 |
-| NFR-02 | Must | Минимизация данных | снимки не пишутся в БД/логи; временные файлы удаляются после ответа и при исключении; тест проверяет временный каталог |
-| NFR-03 | Must | Устойчивость | отсутствие модели даёт 503; внутренняя ошибка 500 без пути к файлу и стека в ответе; у ошибок есть request_id |
-| NFR-04 | Should | Время ответа | целевой p95 <= 10 с на CPU для 100 последовательных снимков после 10 прогревов, batch=1, 384 px; модель CPU, RAM, ОС, потоки и версия фиксируются перед измерением; сейчас измерений нет |
-| NFR-05 | Must | Изоляция тестовых данных | ни один patient_id/дубликат не пересекает train, tuning, calibration и test; при неизвестных пациентах ограничение отражено в отчёте |
-| NFR-06 | Must | Проверяемое качество | публикуются QWK, матрица 5x5, AUROC, sensitivity/specificity, ECE и доверительные интервалы по плану; QWK 0,85 — ориентир исследования, не факт |
-| NFR-07 | Should | Доступность интерфейса | сценарий доступен с клавиатуры; у поля файла есть подпись, ошибки текстовые; на ширине 375 px нет горизонтального скролла |
-| NFR-08 | Must | Ограничение исполнения | загрузки не исполняются; имена не используются как пути; ограничения байтов и декодированных пикселей проверяются до инференса |
+| NFR-01 | Must | Reproducibility | Retain split manifest, seed, data SHA-256, dependency versions and weights; repeated evaluation of identical weights differs in QWK by <= 0.001 |
+| NFR-02 | Must | Data minimisation | No images in database/logs; delete temporary files after response and exceptions; test temporary directory |
+| NFR-03 | Must | Resilience | Missing model: 503; internal error: 500 without path/stack disclosure; errors include request_id |
+| NFR-04 | Should | Response time | Target CPU p95 <= 10 s over 100 sequential images after 10 warm-ups, batch=1, 384 px; record CPU, RAM, OS, threads and version before measurement; no measurements yet |
+| NFR-05 | Must | Test-data isolation | No patient_id or duplicate overlap between train, tuning, calibration and test; disclose unknown patient identity |
+| NFR-06 | Must | Verifiable performance | Publish QWK, 5x5 confusion matrix, AUROC, sensitivity/specificity, ECE and confidence intervals under the plan; QWK 0.85 is a target |
+| NFR-07 | Should | Accessibility | Keyboard-accessible workflow, labelled file input, text errors; no horizontal scrolling at 375 px |
+| NFR-08 | Must | Execution restrictions | Never execute uploads or use filenames as paths; check byte and decoded-pixel limits before inference |
 
-## Контракт API (проект)
+## Draft API Contract
 
-POST /api/v1/predict, multipart field image. Успех 200: request_id, grade, probabilities[5], referable_score, referable_threshold, referable_flag, confidence, calibration_status, model_version, preprocessing_version, heatmap (необязательное поле), warnings[]. Ошибки: 413/415/422/503/500 с error.code, error.message, request_id. Демонстрационные ответы макета не являются ответами работающей модели.
+POST /api/v1/predict, multipart field image. Success 200: request_id, grade, probabilities[5], referable_score, referable_threshold, referable_flag, confidence, calibration_status, model_version, preprocessing_version, optional heatmap, warnings[]. Errors 413/415/422/503/500 contain error.code, error.message and request_id. Mockup responses are not outputs of a working model.
 
-## Трассировка
+## Traceability
 
-FR-01/02/08 → UC-01 загрузка и UC-03 ошибка → T01–T03/T06. FR-03/04/05/09 → UC-02 результат → T04/T05/T09. FR-06 → T07. FR-07 → T08. NFR-01/05/06 → E01–E05. NFR-02/03/08 → T02/T03/T06/T10. NFR-04 → P01. NFR-07 → U01. Описания проверок — в плане верификации.
+FR-01/02/08 -> UC-01 upload and UC-03 error -> T01-T03/T06. FR-03/04/05/09 -> UC-02 result -> T04/T05/T09. FR-06 -> T07. FR-07 -> T08. NFR-01/05/06 -> E01-E05. NFR-02/03/08 -> T02/T03/T06/T10. NFR-04 -> P01. NFR-07 -> U01. Test descriptions appear in the verification plan.

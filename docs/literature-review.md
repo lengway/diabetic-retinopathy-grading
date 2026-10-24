@@ -1,48 +1,48 @@
-# 3. Обзор литературы
+# 3. Literature Review
 
-DIP-3. Версия 0.2, 20.10.2026. Обзор предметной области и подходов; собственных экспериментальных результатов нет.
+DIP-3. Version 0.2, 20 October 2026. Review of the domain and methods; no original experimental results.
 
-## Метод отбора и границы
+## Selection Method and Scope
 
-Источники проверены 20.10.2026 по страницам PubMed, издателей, PMLR и arXiv. Поисковые направления: diabetic retinopathy grading, external validation, retinal foundation model, calibration, explainability, prospective screening. Включены 15 научных публикаций; 8 опубликованы в 2022–2025 годах и заведомо входят в последние пять лет на дату отчёта. Семь более ранних работ оставлены как основания шкалы, методов и данных. Источники отобраны целевым поиском, обзор не является систематическим метаанализом.
+Sources were checked on 20 October 2026 using PubMed, publisher, PMLR and arXiv pages. Search topics: diabetic retinopathy grading, external validation, retinal foundation models, calibration, explainability and prospective screening. Fifteen scientific publications are included; eight appeared in 2022-2025, within the preceding five years. Seven earlier works establish the grading scale, methods and datasets. Sources were selected through targeted searches; this is not a systematic meta-analysis.
 
-Анализ основан на доступных аннотациях, страницах статей и описаниях методов. Полный текст всех 15 работ не заявляется прочитанным; воспроизведение экспериментов не выполнялось. Ссылки ведут к первичным публикациям или их библиографическим записям. Результаты авторов не приписываются данному проекту.
+Analysis uses available abstracts, article pages and method descriptions. Reading every full text or reproducing experiments is not claimed. Links identify primary publications or bibliographic records. Published findings are not results of this project.
 
-## Таблица анализа
+## Analysis Table
 
-| ID / год | Работа и подход | Что используется в проекте | Ограничение переноса |
+| ID / year | Study and approach | Project use | Transfer limitation |
 |---|---|---|---|
-| L01 / 2021 | Teo et al.; метаанализ распространённости | обоснование актуальности | глобальная оценка не равна местной потребности |
-| L02 / 2003 | Wilkinson et al.; консенсусная шкала ICDR | определение пяти упорядоченных стадий | отдельная шкала макулярного отёка не входит в DR 0–4 |
-| L03 / 2016 | Gulshan et al.; DL для выявления referable DR | baseline задачи и внешняя проверка | бинарное выявление не доказывает качество пяти классов |
-| L04 / 2017 | Selvaraju et al.; Grad-CAM | визуализация вклада областей CNN | карта не является разметкой поражений или причинным доказательством |
-| L05 / 2017 | Guo et al.; temperature scaling | калибровка на отдельном наборе | работа не гарантирует перенос калибровки на новую камеру |
-| L06 / 2019 | Tan, Le; EfficientNet | компактный CNN baseline | эффективность на ImageNet не гарантирует качество ДР |
-| L07 / 2018 | Porwal et al.; IDRiD | независимый источник для проверки | различать подзадачи и доступность меток |
-| L08 / 2022 | Ruamviboonsuk et al.; проспективный скрининг в Таиланде | оценивать реальный процесс и отказы | иной контекст, оборудование и клинический протокол |
-| L09 / 2022 | Automated multidimensional platform; многоцентровая ретроспективная оценка | учитывать пригодность и ограничения снимков | ретроспективное исследование не заменяет внедрение |
-| L10 / 2024 | Wolf et al.; ACCESS, рандомизированное исследование | оценивать завершённость обследования, не только AUC | один педиатрический центр; не подтверждает потребность местной клиники |
-| L11 / 2024 | Autonomous AI ... underserved populations; наблюдение внедрения | учитывать доступ и различия групп | наблюдательная связь не доказывает причинность |
-| L12 / 2024 | Dai et al.; DeepDR Plus, прогноз прогрессирования | пример внешних когорт и иной конечной точки | прогноз времени до ухудшения выходит за scope |
-| L13 / 2023 | Zhou et al.; RETFound, самообучение | альтернатива обучению CNN, эффективность разметки | ресурсы и происхождение pretraining могут усложнить честный test |
-| L14 / 2025 | A data-efficient strategy ...; RETFound-DE | сравнение data-efficient подходов | генерация синтетических данных не входит в проект |
-| L15 / 2025 | Engelmann, Bernabeu; RETFound-Green | учитывать стоимость и компактность foundation models | заявленные выигрыши проверены авторами на их протоколе |
+| L01 / 2021 | Teo et al.; prevalence meta-analysis | Relevance | Global prevalence is not local demand |
+| L02 / 2003 | Wilkinson et al.; ICDR consensus | Five ordered grades | Macular-oedema scale is separate |
+| L03 / 2016 | Gulshan et al.; DL for referable DR | Task baseline and external testing | Binary detection does not establish five-class performance |
+| L04 / 2017 | Selvaraju et al.; Grad-CAM | CNN region attribution | Neither lesion labels nor causal proof |
+| L05 / 2017 | Guo et al.; temperature scaling | Held-out calibration | No guarantee on another camera |
+| L06 / 2019 | Tan and Le; EfficientNet | Compact CNN baseline | ImageNet efficiency does not guarantee DR performance |
+| L07 / 2018 | Porwal et al.; IDRiD | Independent evaluation source | Distinguish subtasks and label availability |
+| L08 / 2022 | Ruamviboonsuk et al.; prospective Thai screening | Workflow and rejection analysis | Different setting, equipment and protocol |
+| L09 / 2022 | Automated multidimensional platform; multicentre retrospective evaluation | Gradability and image limits | Retrospective testing does not replace deployment |
+| L10 / 2024 | Wolf et al.; ACCESS randomised trial | Screening completion beyond AUC | One paediatric centre; no proof of local demand |
+| L11 / 2024 | Autonomous AI in underserved populations; deployment study | Access and group differences | Observational association is not causation |
+| L12 / 2024 | Dai et al.; DeepDR Plus progression prediction | External cohorts and alternative endpoint | Time-to-progression is outside scope |
+| L13 / 2023 | Zhou et al.; RETFound self-supervision | CNN alternative and label efficiency | Resources and pretraining overlap complicate testing |
+| L14 / 2025 | Data-efficient strategy; RETFound-DE | Data-efficient alternatives | Synthetic-data generation is outside scope |
+| L15 / 2025 | Engelmann and Bernabeu; RETFound-Green | Foundation-model cost/compactness | Reported gains belong to the authors' protocol |
 
-## Синтез
+## Synthesis
 
-Клиническая шкала [L02] задаёт порядковую структуру ответа, но задачи выявления mtmDR и классификации пяти стадий различаются. Поэтому проект сообщает QWK и ошибки по всем классам отдельно от бинарных AUROC и sensitivity/specificity. В отличие от клинических скрининговых систем, текущий прототип не оценивает макулярный отёк и не даёт полного решения о направлении.
+ICDR [L02] defines ordered output, but mtmDR detection differs from five-grade classification. Report QWK and per-class errors separately from binary AUROC and sensitivity/specificity. Unlike clinical screening systems, this prototype does not assess macular oedema or provide a complete referral decision.
 
-Работы внедрения [L08–L11] показывают значимость пользовательского процесса, пригодности снимка и доведения результата до дальнейшего обследования. Их результаты служат основанием для исследования сценария, но не заменяют 3–5 бесед с реальными пользователями проекта.
+Deployment studies [L08-L11] show the importance of workflows, gradability and follow-up. They motivate studying the scenario but do not replace 3-5 interviews with actual prospective users.
 
-RETFound и более экономичные продолжения [L13–L15] расширяют набор альтернатив за пределы CNN. Для ограниченного времени выбран воспроизводимый компактный baseline [L06], а foundation models остаются сравнительным направлением. Смена модели оправдана только измеренным улучшением на одном протоколе без утечки pretraining/test.
+RETFound and economical extensions [L13-L15] broaden alternatives beyond CNNs. Given time limits, start with a reproducible compact baseline [L06]. Foundation models remain a comparison direction; changing models requires measured improvement under one protocol without pretraining/test leakage.
 
-Модель может быть уверенной и ошибаться: калибровка [L05] оценивается отдельно от классификации и повторно на внешнем наборе. Grad-CAM [L04] применяется для анализа ошибок и обсуждения с консультантом; клиническая достоверность карты не предполагается.
+A confident model can be wrong. Evaluate calibration [L05] separately from classification and again externally. Use Grad-CAM [L04] for error analysis and adviser discussion without assuming clinical validity.
 
-## Исследовательские вопросы
+## Research Questions
 
-RQ1: как меняется QWK и бинарное выявление DR >= 2 при переходе с внутренней выборки на независимый источник? RQ2: улучшает ли temperature scaling NLL/ECE и сохраняется ли эффект на внешних данных? RQ3: какие типы ошибок и артефактов выявляются при анализе Grad-CAM? Эти вопросы формируют проверяемый вклад учебного проекта без заявления о новой клинической системе.
+RQ1: How do QWK and binary DR >= 2 detection change from internal to independent external data? RQ2: Does temperature scaling improve NLL/ECE, and does the improvement persist externally? RQ3: Which errors and artifacts emerge through Grad-CAM analysis? These questions define a testable educational contribution without claiming a new clinical system.
 
-## Библиография
+## Bibliography
 
 [L01] Teo Z.L. et al. Global Prevalence of Diabetic Retinopathy and Projection of Burden through 2045: Systematic Review and Meta-analysis. Ophthalmology, 2021, 128(11):1580–1591. https://pubmed.ncbi.nlm.nih.gov/33940045/
 
@@ -50,7 +50,7 @@ RQ1: как меняется QWK и бинарное выявление DR >= 2 
 
 [L03] Gulshan V. et al. Development and Validation of a Deep Learning Algorithm for Detection of Diabetic Retinopathy in Retinal Fundus Photographs. JAMA, 2016, 316(22):2402–2410. DOI 10.1001/jama.2016.17216. https://pubmed.ncbi.nlm.nih.gov/27898976/
 
-[L04] Selvaraju R.R. et al. Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization. ICCV, 2017; препринт 2016. https://arxiv.org/abs/1610.02391
+[L04] Selvaraju R.R. et al. Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization. ICCV, 2017; preprint 2016. https://arxiv.org/abs/1610.02391
 
 [L05] Guo C. et al. On Calibration of Modern Neural Networks. ICML, PMLR 70:1321–1330, 2017. https://proceedings.mlr.press/v70/guo17a.html
 
@@ -74,24 +74,24 @@ RQ1: как меняется QWK и бинарное выявление DR >= 2 
 
 [L15] Engelmann J., Bernabeu M.O. Training a high-performance retinal foundation model with half-the-data and 400 times less compute. Nature Communications, 2025, 16:6862. DOI 10.1038/s41467-025-62123-z. https://www.nature.com/articles/s41467-025-62123-z
 
-## Данные, метрики и результаты публикаций
+## Publication Data, Metrics and Findings
 
-Это сведения публикаций, не результаты проекта. Где численные значения не извлечены из проверенного описания, они не восстанавливаются по памяти.
+These are published findings, not project results. Numerical values absent from the checked descriptions are not reconstructed from memory.
 
-| ID | Данные / дизайн | Оценка | Результат и предел вывода |
+| ID | Data / design | Evaluation | Finding and limitation |
 |---|---|---|---|
-| L01 | метаанализ исследований людей с диабетом | распространённость и 95% CI | ДР 22,27%; нет локальной оценки спроса |
-| L02 | международный экспертный консенсус | согласованность классификации | предложена шкала пяти стадий; это не ML-бенчмарк |
-| L03 | размеченные fundus-фотографии, EyePACS-1 и Messidor-2 для проверки | чувствительность, специфичность, AUC | DL выявляет referable DR; это бинарная задача |
-| L04 | задачи распознавания изображений | локализация и качественные визуализации | градиентная карта объясняет области внимания CNN; клинический результат не оценивался |
-| L05 | классификация изображений и документов | калибровка, в том числе ECE | temperature scaling улучшает калибровку на исследованных задачах |
-| L06 | ImageNet и перенос на другие задачи | accuracy, параметры и вычислительная эффективность | совместное масштабирование глубины, ширины и разрешения эффективно в протоколе авторов |
-| L07 | снимки IDRiD с разметкой градации и подзадач | описание набора, разметки и задач | предоставлен набор для исследований; не результат нашей модели |
-| L08 | 7651 подходящих участников национального скрининга Таиланда | accuracy, sensitivity, specificity для vision-threatening DR | исследована проспективная работа в потоке; конечная точка шире DR >= 2 |
-| L09 | многоцентровый ретроспективный набор, пять классификаторов | accuracy, F1, sensitivity, specificity, AUROC, AUPRC | оцениваются качество и разные компоненты скрининга; прямого сравнения с нашим прототипом нет |
-| L10 | ACCESS: 81 человек в интервенции и 83 в контроле | завершённость обследования в течение 6 месяцев | 100% против 22% в конкретном исследовании; это не accuracy модели |
-| L11 | внедрение в интегрированной системе здравоохранения, >17000 взрослых с диабетом | соблюдение обследований и различия групп | использование AI ассоциировано с улучшением доступности; возможны смешивающие факторы |
-| L12 | предобучение и продольные когорты для прогноза прогрессирования | C-index и integrated Brier score | прогнозируется время до ухудшения; не текущая стадия |
-| L13 | самообучение примерно на 1,6 млн CFP/OCT и downstream-задачи | downstream-качество, label efficiency и внешняя проверка | предобученные представления полезны для ряда задач; не гарантия выигрыша на нашем split |
-| L14 | синтетические и реальные fundus-данные, девять публичных наборов | качество downstream-задач и потребность в разметке | data-efficient предобучение уменьшает потребность в реальных данных в исследовании |
-| L15 | 75000 публичных снимков для предобучения и внешние downstream-наборы | качество, ресурсы обучения/инференса | компактный RETFound-Green снижает ресурсы в протоколе авторов; наш замер отсутствует |
+| L01 | Meta-analysis of people with diabetes | Prevalence and 95% CI | DR 22.27%; no local-demand estimate |
+| L02 | International expert consensus | Classification agreement | Five-grade scale, not an ML benchmark |
+| L03 | Labelled fundus photos; EyePACS-1/Messidor-2 evaluation | Sensitivity, specificity, AUC | DL detects referable DR; binary task |
+| L04 | Image recognition tasks | Localisation and qualitative maps | Gradient maps indicate CNN attention; no clinical endpoint |
+| L05 | Image/document classification | Calibration including ECE | Temperature scaling improves calibration on studied tasks |
+| L06 | ImageNet and transfer tasks | Accuracy, parameters, compute | Joint depth/width/resolution scaling works under authors' protocol |
+| L07 | IDRiD images with grading/subtask labels | Dataset, annotation and task description | Research dataset, not our model result |
+| L08 | 7,651 eligible Thai screening participants | Accuracy, sensitivity, specificity for vision-threatening DR | Prospective workflow evaluation; endpoint broader than DR >= 2 |
+| L09 | Multicentre retrospective data; five classifiers | Accuracy, F1, sensitivity, specificity, AUROC, AUPRC | Quality and screening components evaluated; no direct prototype comparison |
+| L10 | ACCESS: 81 intervention and 83 control participants | Screening completion within six months | 100% versus 22% in that study, not model accuracy |
+| L11 | Integrated health-system deployment; >17,000 adults with diabetes | Screening adherence and group differences | AI use associated with access gains; confounding possible |
+| L12 | Pretraining and longitudinal progression cohorts | C-index and integrated Brier score | Time to progression, not current grade |
+| L13 | Self-supervision on about 1.6 million CFP/OCT images and downstream tasks | Downstream performance, label efficiency, external testing | Useful representations; no guaranteed gain on our split |
+| L14 | Synthetic/real fundus data; nine public datasets | Downstream performance and label needs | Data-efficient pretraining reduces real-data needs in the study |
+| L15 | 75,000 public pretraining images and external downstream sets | Performance and training/inference resources | Compact RETFound-Green reduces resources under authors' protocol; no local measurement |

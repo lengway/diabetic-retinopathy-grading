@@ -1,6 +1,6 @@
 flowchart LR
- U[Врач / оператор] --- C1([UC-01 Загрузить снимок])
- U --- C2([UC-02 Изучить результат])
- U --- C3([UC-03 Исправить ошибку])
- A[Автор проекта] --- C4([UC-04 Оценить и выпустить модель])
- C4 -->|версия модели для результата| C2
+ U[Clinician / operator] --- C1([UC-01 Upload image])
+ U --- C2([UC-02 Inspect result])
+ U --- C3([UC-03 Correct error])
+ A[Project author] --- C4([UC-04 Evaluate and release model])
+ C4 -->|model version for result| C2

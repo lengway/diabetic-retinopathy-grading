@@ -1,10 +1,10 @@
-# 11. Замечания руководителя
+# 11. Supervisor Feedback
 
-DIP-13. Состояние на 20.10.2026.
+DIP-13. Status as of 20 October 2026.
 
-| Основание | Содержание | Учёт | Статус |
+| Evidence | Feedback | Action | Status |
 |---|---|---|---|
-| Предыдущая переписка, изложенная в контексте проекта | сократить формулировку темы | использована официальная формулировка от 14.10.2026, начинающаяся со слова «Разработка» | отражено в README и proposal |
-| Сообщение студента 20.10.2026 | новых замечаний руководителя нет | новые отзывы и согласования не приписываются | подтверждённого отзыва на пакет нет |
+| Earlier correspondence recorded in project context | Shorten the topic wording | Use the official title dated 14 October 2026, beginning with 'Development' | Reflected in README and proposal |
+| Student's statement, 20 October 2026 | No new supervisor comments | Do not attribute unreceived feedback or approval | No confirmed review of this package |
 
-Отзыв на текущий пакет не получен. DIP-13 открыта.
+Feedback on the current package has not been received. DIP-13 remains open.

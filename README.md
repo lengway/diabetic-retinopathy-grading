@@ -82,3 +82,11 @@ data/               локальные данные (в git не попадаю�
 Готовы проекты аналитических и проектных документов. Пользовательские беседы, EDA, обучение и новый отзыв руководителя не подтверждены. Приложение не реализовано.
 
 Пересборка PDF: `python3 scripts/build_submission.py` (Python 3.10+, reportlab, Pillow, шрифты Arial на macOS). Диаграммы и макеты: `python3 scripts/build_visuals.py`. Проверка: `python3 scripts/check_package.py`.
+
+## English Submission - 24 October 2026
+
+- [Probationary period report](output/pdf/Probationary_Report_Kutbeyev_EN_2026-10-24.pdf)
+- [YouTrack board and all 14 issues](output/pdf/YouTrack_Kutbeyev_EN_2026-10-24.pdf)
+- [English documentation index](docs/README.md)
+
+The report, diagrams, mockups, YouTrack issue titles/descriptions and board labels are in English.

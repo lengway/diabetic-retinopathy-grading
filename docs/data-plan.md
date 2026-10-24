@@ -1,14 +1,14 @@
-# План данных и условия доступа
+# Data Plan and Access Conditions
 
-DIP-6. 20.10.2026. Датасеты в этой сессии не загружены; EDA не выполнен. Числа ниже — сведения источников/плана, не измерения локальных файлов.
+DIP-6. 20 October 2026. Datasets were not downloaded in this session; EDA has not been completed. Figures describe published sources/plans, not local-file measurements.
 
-| Набор | Назначение | Первичный источник | Ограничение |
+| Dataset | Purpose | Primary source | Restriction |
 |---|---|---|---|
-| APTOS 2019 | первый train/tuning/calibration/test | https://www.kaggle.com/competitions/aptos2019-blindness-detection/data | требуется проверить правила конкурса и принять их в своей учётной записи; не считать доступность файла разрешением на распространение |
-| EyePACS/Kaggle 2015 | дополнительное обучение | https://www.kaggle.com/competitions/diabetic-retinopathy-detection/data | отдельные правила, объём и идентификаторы пациентов; не смешивать до проверки |
-| IDRiD | внешняя проверка | https://idrid.grand-challenge.org/ ; статья L07 | у набора есть разные подзадачи; для градации нужны изображения и метки disease grading, а не только маски |
-| Messidor-2 | внешняя проверка | https://www.adcis.net/en/third-party/messidor2/ | изображения и сторонняя разметка могут иметь разные условия; подтвердить источник и mapping стадий |
+| APTOS 2019 | Initial train/tuning/calibration/test | https://www.kaggle.com/competitions/aptos2019-blindness-detection/data | Check/accept competition rules in own account; availability is not redistribution permission |
+| EyePACS/Kaggle 2015 | Additional training | https://www.kaggle.com/competitions/diabetic-retinopathy-detection/data | Separate rules, volume and patient identifiers; check before combining |
+| IDRiD | External evaluation | https://idrid.grand-challenge.org/ ; L07 | Different subtasks; disease-grading images/labels are required, not masks alone |
+| Messidor-2 | External evaluation | https://www.adcis.net/en/third-party/messidor2/ | Images and third-party labels may have different terms; confirm label source and mapping |
 
-Для каждого набора перед скачиванием записать дату, версию, условия использования, необходимость регистрации, разрешение на обучение, перераспространение снимков и весов, требуемую цитату. До проверки статус прав — «не подтверждён». Пациентские данные из клиник в текущий scope не входят.
+Before downloading, record date, version, usage terms, registration, training permission, image/weight redistribution and required citation. Rights status remains 'unconfirmed' until checked. Clinical patient data are outside current scope.
 
-EDA должен содержать фактическое число файлов/пропусков/дубликатов, распределение 0..4, размеры, число недекодируемых изображений, примеры классов при допустимости публикации, ограничения patient_id и протокол split. Если доступ не получен, оставить задачу открытой; не подставлять опубликованные частоты вместо локального анализа. Данные и веса не помещаются в Git.
+EDA must report actual file/missing/duplicate counts, class distribution 0..4, dimensions, decoding failures, class examples where publication is permitted, patient_id limitations and split protocol. If access is unavailable, leave the task open; do not substitute published frequencies for local analysis. Do not commit datasets or weights to Git.

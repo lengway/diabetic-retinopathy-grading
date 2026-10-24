@@ -1,4 +1,4 @@
-"""Build a traceable Russian report and a separate PDF of actual YouTrack captures."""
+"""Build a traceable English report and a separate PDF of actual YouTrack captures."""
 from pathlib import Path
 import re,html,json
 from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,Image,KeepTogether
@@ -13,9 +13,9 @@ for name,f in [('Arial','Arial.ttf'),('Arial-Bold','Arial Bold.ttf'),('Arial-Ita
  pdfmetrics.registerFont(TTFont(name,'/System/Library/Fonts/Supplemental/'+f))
 pdfmetrics.registerFontFamily('Arial',normal='Arial',bold='Arial-Bold',italic='Arial-Italic',boldItalic='Arial-Bold')
 styles=getSampleStyleSheet()
-styles.add(ParagraphStyle(name='BodyRU',fontName='Arial',fontSize=9.3,leading=13.2,spaceAfter=7,splitLongWords=True))
+styles.add(ParagraphStyle(name='BodyRU',fontName='Arial',fontSize=9.3,leading=12.4,spaceAfter=7,splitLongWords=True))
 styles.add(ParagraphStyle(name='SmallRU',parent=styles['BodyRU'],fontSize=7.5,leading=10,spaceAfter=2))
-styles.add(ParagraphStyle(name='RefRU',parent=styles['BodyRU'],fontSize=8.4,leading=11.5,spaceAfter=6))
+styles.add(ParagraphStyle(name='RefRU',parent=styles['BodyRU'],fontSize=8.0,leading=10.5,spaceAfter=3))
 styles.add(ParagraphStyle(name='H1RU',fontName='Arial-Bold',fontSize=18,leading=23,spaceAfter=14,spaceBefore=9,keepWithNext=True))
 styles.add(ParagraphStyle(name='H2RU',fontName='Arial-Bold',fontSize=12,leading=16,spaceAfter=8,spaceBefore=10,keepWithNext=True))
 styles.add(ParagraphStyle(name='TitleRU',fontName='Arial-Bold',fontSize=23,leading=30,alignment=TA_CENTER,spaceAfter=22))
@@ -73,21 +73,21 @@ def md(path):
  return items
 
 def footer(c,doc):
- c.saveState();c.setFont('Arial',8);c.setFillColor(colors.HexColor('#617686'));c.drawString(50,27,'Кутбеев Р.В. | Апробация | 20.10.2026');c.drawRightString(doc.pagesize[0]-50,27,str(doc.page));c.restoreState()
+ c.saveState();c.setFont('Arial',8);c.setFillColor(colors.HexColor('#617686'));c.drawString(50,27,'R. Kutbeyev | Probationary Period | 24 October 2026');c.drawRightString(doc.pagesize[0]-50,27,str(doc.page));c.restoreState()
 def build(name,story,pagesize=None):
- SimpleDocTemplate(str(OUT/name),pagesize=pagesize or (W,H),rightMargin=50,leftMargin=50,topMargin=45,bottomMargin=46,title=name[:-4],author='Кутбеев Роман Владимирович',allowSplitting=True).build(story,onFirstPage=footer,onLaterPages=footer)
+ SimpleDocTemplate(str(OUT/name),pagesize=pagesize or (W,H),rightMargin=50,leftMargin=50,topMargin=45,bottomMargin=46,title=name[:-4],author='Roman Vladimirovich Kutbeyev',allowSplitting=True).build(story,onFirstPage=footer,onLaterPages=footer)
 files=['docs/proposal.md','docs/evidence-of-relevance.md','docs/literature-review.md','docs/systems-comparison.md','docs/technology-comparison.md','docs/requirements.md','docs/architecture.md','docs/ux/README.md','docs/verification-plan.md','docs/project-management.md','docs/supervisor-feedback.md','docs/data-plan.md']
-story=[Spacer(1,50),para('Astana IT University','H2RU'),para('Школа программной инженерии'),Spacer(1,35),para('ОТЧЁТ К АПРОБАЦИОННОМУ ПЕРИОДУ','TitleRU'),para('Разработка интеллектуального ассистента для градации диабетической ретинопатии по снимкам глазного дна','H1RU'),Spacer(1,25),para('Исполнитель: Кутбеев Роман Владимирович, SE-2404'),para('Руководитель: Турарова Маржан Кабдыкалиевна'),para('Индивидуальный дипломный проект • Software Engineering'),Spacer(1,25),para('20 октября 2026 года. Этап анализа и проектирования.'),para('Исследовательский прототип. Не предназначен для клинической диагностики.'),Spacer(1,18),para('Астана, 2026'),PageBreak(),para('Состав отчёта','H1RU')]
+story=[Spacer(1,50),para('Astana IT University','H2RU'),para('School of Software Engineering'),Spacer(1,35),para('PROBATIONARY PERIOD REPORT','TitleRU'),para('Development of an Intelligent Assistant for Grading Diabetic Retinopathy Using Fundus Images','H1RU'),Spacer(1,25),para('Student: Roman Vladimirovich Kutbeyev, SE-2404'),para('Supervisor: Marzhan Kabdykalievna Turarova'),para('Individual graduation project | Software Engineering'),Spacer(1,25),para('Analysis and design stage: 20 October 2026. English version: 24 October 2026.'),para('Research prototype. Not intended for clinical diagnosis.'),Spacer(1,18),para('Astana, 2026'),PageBreak(),para('Report Contents','H1RU')]
 for i,n in enumerate(files):
  title=(ROOT/n).read_text().splitlines()[0].lstrip('# ')
- if i==0:title='1. Постановка задачи и project proposal'
+ if i==0:title='1. Problem Statement and Project Proposal'
  story.append(para(title))
 for n in files:story.append(PageBreak());story.extend(md(ROOT/n))
-build('Отчет_апробация_Кутбеев_2026-10-20.pdf',story)
-shots=sorted((ROOT/'docs/submission/screenshots').glob('*.png'))
+build('Probationary_Report_Kutbeyev_EN_2026-10-24.pdf',story)
+shots=sorted((ROOT/'docs/submission/screenshots-en').glob('*.png'))
 if shots:
- s=[para('YouTrack: доска и задачи','H1RU'),para('Кутбеев Роман Владимирович • SE-2404 • Проект DIP • 20.10.2026'),para('https://diabeticretinopathygrading.youtrack.cloud/agiles/204-1/current')]
+ s=[para('YouTrack: Board and Issues','H1RU'),para('Roman Vladimirovich Kutbeyev | SE-2404 | Project DIP | 24 October 2026'),para('https://diabeticretinopathygrading.youtrack.cloud/agiles/204-1/current')]
  for f in shots:
   s.extend([PageBreak(),para(f.stem,'H2RU'),picture(f,420,740)])
- build('YouTrack_Кутбеев_2026-10-20.pdf',s,pagesize=(841.89,595.28))
+ build('YouTrack_Kutbeyev_EN_2026-10-24.pdf',s,pagesize=(841.89,595.28))
 print('Built report; screenshot pages:',len(shots))

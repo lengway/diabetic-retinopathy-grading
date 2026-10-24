@@ -1,25 +1,25 @@
-# 8. Макеты ключевых сценариев
+# 8. Key Workflow Mockups
 
-DIP-10. 20.10.2026. Три схемных макета, не работающий ML-сервис. Числа на экране результата условные; модель не запускалась. Изображения пациента и искусственная карта Grad-CAM не подставлялись.
+DIP-10. 20 October 2026. Three schematic mockups, not a working ML service. Result values are illustrative; no model was run. No patient image or artificial Grad-CAM map has been inserted.
 
-## Загрузка
+## Upload
 
-![Загрузка](upload.png)
+![Upload](upload.png)
 
-Один файл, ограничение 20 MiB, явное исследовательское назначение. После выбора файла отображаются имя и возможность заменить его; во время анализа отправка блокируется. Анимация обработки описана как состояние будущей реализации.
+One file, 20 MiB limit and explicit research purpose. After selection, display the filename and replacement option; disable submission during analysis. Processing animation is a state of the future implementation.
 
-## Результат
+## Result
 
-![Результат](result.png)
+![Result](result.png)
 
-Стадия 0–4 показывается отдельно от бинарного score. В примере score=0,74 и условный порог 0,50, поэтому флаг положительный; производственный порог будет определён только на calibration. Условные вероятности примера: [0,06; 0,20; 0,68; 0,04; 0,02], сумма равна 1. Карта должна переключаться с исходным снимком после реализации FR-06. Уверенность обозначает выход модели, а не вероятность здоровья. Отрицательный флаг не исключает другие заболевания.
+Show grade 0-4 separately from binary score. In the example, score=0.74 and illustrative threshold=0.50, so the flag is positive. The operational threshold will be selected on calibration only. Illustrative probabilities are [0.06, 0.20, 0.68, 0.04, 0.02], summing to 1. Implement map/original switching under FR-06. Confidence is model output, not the probability of being healthy. A negative flag does not exclude other diseases.
 
-## Ошибка
+## Error
 
-![Ошибка](error.png)
+![Error](error.png)
 
-Повреждённый файл не получает прогноза. Предлагается выбрать другой снимок. Отдельно в реализации потребуются ошибки лимита размера, недоступности модели и внутреннего сбоя. Ошибка декодирования не называется оценкой клинического качества снимка.
+A corrupt file receives no prediction; select another image. Implementation must additionally handle size limits, unavailable models and internal failures. A decoding error is not a clinical image-quality assessment.
 
-## Проверка макетов
+## Mockup Verification
 
-Сценарии связаны с UC-01/02/03 и FR-01..08. Валидация с пользователями ещё не проведена. Следующая проверка: понятность бинарного флага, числовой уверенности и ограничений; работа клавиатурой и адаптация к 375 px проверяются после реализации интерфейса. Экспорты воспроизводятся scripts/build_visuals.py.
+Scenarios map to UC-01/02/03 and FR-01..08. User validation has not occurred. Next, assess understanding of the binary flag, numerical confidence and limitations. Test keyboard access and 375 px responsiveness after implementation. Reproduce exports with scripts/build_visuals.py.

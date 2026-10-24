@@ -1,45 +1,45 @@
-# 10. Управление проектом и риски
+# 10. Project Management and Risks
 
-DIP-12. 20.10.2026. Ответственный за весь проект — Кутбеев Роман Владимирович (GitHub lengway). Научный руководитель — Турарова Маржан Кабдыкалиевна.
+DIP-12. 20 October 2026. Sole project owner: Roman Vladimirovich Kutbeyev (GitHub: lengway). Supervisor: Marzhan Kabdykalievna Turarova.
 
-## Учёт и доказательства работы
+## Work Tracking and Evidence
 
-Репозиторий: https://github.com/lengway/diabetic-retinopathy-grading . YouTrack: https://diabeticretinopathygrading.youtrack.cloud . Проект DIP, Kanban с полем Stage. Каждая задача содержит ответственного, ожидаемый результат, критерии и срок. Новые изменения готовятся в отдельной ветке с DIP-ID, коммиты отражают фактическое время, затем Pull Request. Не переписывать историю для имитации постепенной работы. Статус Done выставляется только после проверки критериев, а не после создания заголовка документа.
+Repository: https://github.com/lengway/diabetic-retinopathy-grading . YouTrack: https://diabeticretinopathygrading.youtrack.cloud . Project DIP uses Kanban with the Stage field. Each issue specifies an assignee, deliverable, acceptance criteria and due date. Prepare changes in a DIP-ID branch, retain real commit dates and use Pull Requests. Do not rewrite history to imitate gradual work. Set Done only after checking criteria.
 
-Вклад единственного участника: постановка задачи, анализ, требования, архитектура, UX, далее данные/ML, сервис и тестирование. В текущей версии не заявляется завершение обучения или сервиса. Перед отправкой формы сопоставить вклад с файлами и историей Git. Подтверждённые прежние изменения: каркас DIP-1, proposal DIP-2, план и ссылка на YouTrack DIP-12.
+The sole student's contribution covers problem formulation, analysis, requirements, architecture and UX, followed by data/ML, service and testing. This version does not claim completed training or implementation. Match contribution statements to files/Git history before submission. Earlier verified work includes DIP-1 scaffolding, DIP-2 proposal and DIP-12 planning/YouTrack link.
 
-## Ближайший календарь
+## Immediate Schedule
 
-| Дата | Результат | Зависимость |
+| Date | Deliverable | Dependency |
 |---|---|---|
-| 20.10 | обзор, сравнения, требования, архитектура и макеты; черновой единый отчёт | первичные источники |
-| 21.10 | 3–5 пользовательских бесед или допустимое школой подтверждение заказчика; запрос обратной связи | доступность специалистов; согласование формата |
-| 22.10 | получение данных на разрешённых условиях и EDA; правки по проверке | аккаунты/условия датасетов |
-| 23.10 | проверка документов, фактических статусов, доступа комиссии; скриншоты доски и задач | данные получателей доступа |
-| 24.10 до 17:00 | финальная сверка и загрузка двух PDF одним представителем | университетская учётная запись |
-| 24.10 18:00 | закрытие формы по сообщению школы | время Астаны / Asia/Almaty |
+| 20 October | Reviews, comparisons, requirements, architecture, mockups and draft report | Primary sources |
+| 21 October | 3-5 user interviews or school-accepted client evidence; feedback request | Specialist availability and format agreement |
+| 22 October | Authorised dataset acquisition and EDA; review corrections | Accounts/dataset terms |
+| 23 October | Documents, actual statuses, committee access and screenshots | Recipient account information |
+| 24 October, by 17:00 | Final check and upload of two PDFs by one representative | University account |
+| 24 October, 18:00 | School form closes | Astana time / Asia/Almaty |
 
-Резерв в один час — внутренний ориентир, официальный срок — 18:00 24.10.2026. Выполнение всех пользовательских бесед за день не гарантировано, это главный открытый риск.
+The one-hour reserve is internal; the official deadline is 18:00 on 24 October 2026. Completing all interviews within one day is not guaranteed and remains the main open risk.
 
-## Вехи диплома (проект, не утверждённый график школы)
+## Thesis Milestones: Proposed Schedule
 
-Ноябрь–декабрь 2026: данные и baseline; январь–февраль 2027: внешняя проверка, калибровка и объяснимость; март–апрель: сервис и тесты; апрель–май: итоговый текст. Даты предзащит уточняются. Теги pre-defense-1, pre-defense-2, final-pre-defense создаются на фактических контрольных версиях и не передвигаются.
+November-December 2026: data and baseline. January-February 2027: external evaluation, calibration and explainability. March-April: service and tests. April-May: thesis. Confirm defence dates with the school. Create pre-defense-1, pre-defense-2 and final-pre-defense tags at actual checkpoints; do not move them.
 
-## Реестр рисков
+## Risk Register
 
-| ID | Риск | Вероятность / влияние | Мера и сигнал | Ответственный |
+| ID | Risk | Likelihood / impact | Mitigation and trigger | Owner |
 |---|---|---|---|---|
-| R1 | нет подтверждения пользовательской потребности | высокая / высокое | назначить беседы; отсутствие протоколов к 22.10 — сообщить о незакрытом требовании | автор |
-| R2 | нет обратной связи руководителя | высокая / высокое | подготовить конкретный пакет для просмотра; не писать о приёмке без ответа | автор |
-| R3 | нет доступа комиссии к частным материалам | средняя / высокое | узнать конкретные аккаунты, выдать чтение, проверить под получателем; наличие ссылки недостаточно | автор |
-| R4 | ограничения лицензии/разметки | средняя / высокое | реестр прав до скачивания, не распространять снимки; заменить набор только с фиксацией причины | автор |
-| R5 | утечка между глазами/дубликатами | высокая / высокое | группировка и хеши, тесты split, явно раскрыть неизвестный patient_id | автор |
-| R6 | падение качества на внешних данных | высокая / высокое | внешний test без подбора; отчёт о падении, ограничить выводы | автор |
-| R7 | дисбаланс и слабые классы | высокая / среднее | per-class recall, macro-F1, weighted loss только по train | автор |
-| R8 | нехватка GPU/времени | средняя / среднее | сначала B0, ограничить эксперименты; не арендовать без бюджета | автор |
-| R9 | ложная уверенность или трактовка карты как диагноза | средняя / высокое | калибровка и анализ ошибок, явные подписи, ограничение исследовательским применением | автор |
-| R10 | форма недоступна перед сроком | средняя / высокое | войти заранее, проверить размер файлов и поля, сохранить подтверждение отправки | автор |
+| R1 | User need unconfirmed | High / high | Schedule interviews; report missing records by 22 October | Student |
+| R2 | No supervisor feedback | High / high | Prepare a specific review package; record approval only after response | Student |
+| R3 | Committee cannot access private materials | Medium / high | Identify accounts, grant read access and verify as recipient | Student |
+| R4 | Licence/label restrictions | Medium / high | Rights register before download; no image redistribution; document dataset changes | Student |
+| R5 | Eye/patient/duplicate leakage | High / high | Grouping, hashes, split tests; disclose unknown patient_id | Student |
+| R6 | External performance drop | High / high | Untuned external test, report drop and limit conclusions | Student |
+| R7 | Imbalance and weak classes | High / medium | Per-class recall, macro-F1; train-only weighted loss | Student |
+| R8 | Insufficient GPU/time | Medium / medium | Start with B0; limit experiments; agree budget before renting | Student |
+| R9 | Overconfidence or diagnostic reading of maps | Medium / high | Calibration, error analysis, clear research-use labels | Student |
+| R10 | Form unavailable near deadline | Medium / high | Sign in early, check file sizes/fields and retain submission confirmation | Student |
 
-## Доступ
+## Access
 
-Репозиторий private. На 20.10.2026 среди принявших доступ — владелец; одно приглашение ожидает принятия. Доступ комиссии пока не предоставлен.
+The repository is private. As of 20 October 2026, the owner has accepted access and one invitation is pending. Committee access has not yet been granted.

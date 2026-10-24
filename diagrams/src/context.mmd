@@ -1,5 +1,5 @@
 flowchart LR
- U[Врач / оператор] -->|снимок| S[DR Grading Assistant]
- S -->|градация, уверенность, бинарный флаг, карта| U
- A[Автор проекта] -->|версия модели| S
- D[Открытые данные] -->|offline-обучение и оценка автором| S
+ U[Clinician / operator] -->|image| S[DR Grading Assistant]
+ S -->|grade, confidence, binary flag, heatmap| U
+ A[Project author] -->|model version| S
+ D[Public data] -->|Offline training and evaluation| S

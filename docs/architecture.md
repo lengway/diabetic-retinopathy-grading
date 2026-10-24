@@ -1,27 +1,27 @@
-# 7. Архитектура и диаграммы
+# 7. Architecture and Diagrams
 
-DIP-9. Версия 0.2, 20.10.2026. Проект архитектуры; программные компоненты ещё не реализованы.
+DIP-9. Version 0.2, 20 October 2026. Draft architecture; software components have not been implemented.
 
-## Границы системы
+## System Boundary
 
-Система принимает один снимок и возвращает исследовательскую оценку. Обучение и оценка выполняются автором offline; обновление модели не запускается загрузкой пользователя. Медицинские информационные системы, регистрация пациентов и база медицинских историй исключены. Контекст не подразумевает доступ к клиническим данным.
+The system accepts one image and returns a research assessment. The author performs training/evaluation offline; user uploads do not trigger model updates. Health-information systems, patient registration and medical-record databases are excluded. The context does not imply access to clinical data.
 
-![Контекст системы](../diagrams/export/context.png)
+![System context](../diagrams/export/context.png)
 
-## Пользовательские сценарии
+## Use Cases
 
-UC-01: выбрать разрешённый файл, пройти проверку, дождаться ответа. UC-02: посмотреть стадию, бинарный флаг и его ограничение, уверенность и карту. UC-03: исправить файл после явной ошибки без старого результата. UC-04: автор готовит данные, оценивает и выпускает версию модели. Беседы с пользователями могут изменить сценарии.
+UC-01: select an allowed file, pass validation and wait for output. UC-02: inspect grade, binary flag and its limitation, confidence and heatmap. UC-03: correct a file after an explicit error without a stale result. UC-04: the author prepares data, evaluates and releases a model version. User interviews may change these scenarios.
 
-![Варианты использования](../diagrams/export/use-case.png)
+![Use cases](../diagrams/export/use-case.png)
 
-## Компоненты
+## Components
 
-Web UI передаёт multipart-запрос в FastAPI. Валидатор проверяет байты, формат и пиксельные лимиты. Предобработка преобразует RGB в tensor; одна конфигурация используется в обучении и сервисе. CNN возвращает logits; температура превращает их в калиброванные вероятности. Постобработка вычисляет grade=argmax и score=p2+p3+p4, затем сравнивает score с зафиксированным порогом. Grad-CAM требует доступа к активациям/градиентам той же CNN. Ошибка карты не аннулирует корректный основной ответ.
+Web UI sends a multipart request to FastAPI. Validation checks bytes, format and pixel limits. Preprocessing converts RGB to a tensor using the same configuration as training. The CNN returns logits; temperature scaling converts them into calibrated probabilities. Postprocessing computes grade=argmax and score=p2+p3+p4, comparing score with a fixed threshold. Grad-CAM requires activations/gradients from the same CNN. Map failure does not invalidate a correct main response.
 
-![Компоненты](../diagrams/export/components.png)
+![Components](../diagrams/export/components.png)
 
-Веса, температура, порог, порядок классов и правила предобработки составляют единый версионированный комплект с контрольными суммами. Снимок хранится только в памяти или временном каталоге с очисткой. В логах остаются request_id, версия, длительность и код ошибки без содержимого снимка. Параллельное обучение и инференс в одном процессе не планируется.
+Weights, temperature, threshold, class order and preprocessing rules form one versioned bundle with checksums. Keep images only in memory or a temporary directory with cleanup. Logs retain request_id, version, duration and error code without image contents. Concurrent training and inference in one process are not planned.
 
-## Исходники и экспорт
+## Editable Sources and Exports
 
-В diagrams/src/ находятся Mermaid .mmd и редактируемые JSON-описания геометрии. Экспорты PNG и SVG находятся в diagrams/export/. SVG/PNG создаются скриптом scripts/build_visuals.py из JSON-описаний; при изменении Mermaid нужно синхронно изменить JSON-описание геометрии. Это иллюстрации архитектуры, а не автоматически сгенерированные UML-модели. Для пересборки нужен Python с Pillow и шрифт Arial (путь macOS указан в скрипте).
+Mermaid .mmd files and editable geometry JSON are in diagrams/src/. PNG/SVG exports are in diagrams/export/. scripts/build_visuals.py generates SVG/PNG from JSON. Mermaid changes require matching JSON updates. These are architecture illustrations, not automatically generated UML models. Rebuilding requires Python, Pillow and Arial; the script specifies the macOS font path.

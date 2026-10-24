@@ -1,5 +1,5 @@
 {
-  "title": "Компоненты и поток данных",
+  "title": "Components and Data Flow",
   "nodes": [
     [
       60,
@@ -18,7 +18,7 @@
       110,
       [
         "FastAPI",
-        "Валидация загрузки"
+        "Upload validation"
       ]
     ],
     [
@@ -27,7 +27,7 @@
       300,
       110,
       [
-        "Предобработка",
+        "Preprocessing",
         "crop / resize / norm"
       ]
     ],
@@ -47,9 +47,9 @@
       350,
       140,
       [
-        "Постобработка",
-        "Температура / порог",
-        "Контракт ответа"
+        "Postprocessing",
+        "Temperature / threshold",
+        "Response contract"
       ]
     ],
     [
@@ -58,9 +58,9 @@
       260,
       140,
       [
-        "Результат UI",
-        "Стадия и флаг",
-        "Уверенность / карта"
+        "Result UI",
+        "Grade and flag",
+        "Confidence / heatmap"
       ]
     ],
     [
@@ -69,8 +69,8 @@
       350,
       100,
       [
-        "Артефакты версии",
-        "Веса / T / порог / config"
+        "Versioned artifacts",
+        "Weights / T / threshold / config"
       ]
     ]
   ],
@@ -80,7 +80,7 @@
       220,
       495,
       220,
-      "файл"
+      "file"
     ],
     [
       845,
@@ -101,7 +101,7 @@
       480,
       845,
       480,
-      "logits / карта"
+      "logits / heatmap"
     ],
     [
       495,
@@ -115,14 +115,14 @@
       660,
       670,
       550,
-      "T / порог"
+      "T / threshold"
     ],
     [
       845,
       710,
       1180,
       550,
-      "веса"
+      "weights"
     ]
   ]
 }
