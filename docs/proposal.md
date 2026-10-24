@@ -1,100 +1,88 @@
-# Project Proposal
+# 1. Problem Statement and Project Proposal
 
-**Название:** Интеллектуальный ассистент для градации диабетической ретинопатии по снимкам глазного дна
-**Образовательная программа:** Software Engineering, Astana IT University
-**Исполнитель:** Кутбеев Роман Владимирович, SE-2404 (индивидуальный проект)
-**Научный руководитель:** Турарова Маржан Кабдыкалиевна
-**Медицинский консультант:** _уточняется_
-**Версия:** 0.1, 13.10.2026
+**Title:** Development of an Intelligent Assistant for Grading Diabetic Retinopathy Using Fundus Images
+**Degree programme:** Software Engineering, Astana IT University
+**Student:** Roman Vladimirovich Kutbeyev, SE-2404 (individual project)
+**Supervisor:** Marzhan Kabdykalievna Turarova
+**Medical adviser:** to be confirmed
+**Version:** 0.2, 20 October 2026; English translation: 24 October 2026
 
----
+## 1. Problem
 
-## 1. Проблема
+Diabetic retinopathy (DR) is a microvascular complication of diabetes and a leading cause of vision loss among working-age adults. Early stages are asymptomatic, making regular fundus-image screening important for people with diabetes.
 
-Диабетическая ретинопатия (ДР) — микрососудистое осложнение сахарного диабета и одна из ведущих причин потери зрения у взрослых трудоспособного возраста. На ранних стадиях она протекает бессимптомно, поэтому людям с диабетом рекомендуется регулярный скрининг по снимкам глазного дна.
+- Approximately 589 million adults aged 20-79 had diabetes in 2024; the projected number is 853 million by 2050. An estimated 43% are undiagnosed (IDF Diabetes Atlas, 11th edition, 2025).
+- DR affects 22.27% of people with diabetes: approximately 103 million in 2020, projected to reach 160.5 million by 2045. Vision-threatening DR affects 6.17% (Teo et al., Ophthalmology, 2021).
 
-Масштаб проблемы:
+Manual assessment requires qualified specialists whose numbers do not grow as quickly as the patient population. Automated screening systems, including IDx-DR/LumineticsCore and EyeArt, are proprietary and cannot be freely studied, reproduced or adapted. Open models trained on one dataset often lose performance on images from other cameras and clinics. The reliability of model confidence is also rarely reported.
 
-- в 2024 году диабет был у ~589 млн взрослых 20–79 лет, к 2050 году прогнозируется ~853 млн; 43% не знают о диагнозе (IDF Diabetes Atlas, 11-е изд., 2025);
-- ДР встречается у 22,27% людей с диабетом (~103 млн человек в 2020 году, прогноз 160,5 млн к 2045 году), угрожающая зрению форма — у 6,17% (Teo et al., *Ophthalmology*, 2021).
+## 2. Users
 
-Ручная оценка снимков требует времени квалифицированного специалиста, а их число не растёт так же быстро, как число пациентов. Существующие системы автоматического скрининга (например, IDx-DR / LumineticsCore, EyeArt) проприетарны: их нельзя изучить, воспроизвести или адаптировать. Открытые модели, обученные на одном датасете, часто заметно теряют качество на снимках с других камер и из других клиник. При этом редко сообщается, насколько можно доверять уверенности модели.
+| User | Task | Required output |
+|---|---|---|
+| Primary-care physician / endocrinologist | Assess referral to an ophthalmologist | Understandable recommendation and confidence |
+| Ophthalmologist | Prioritise images and inspect model decisions | ICDR grade and heatmap |
+| Screening operator | Upload an image and obtain a result | Simple interface and unsuitable-image message |
 
-## 2. Пользователи
+These user groups and needs are assumptions to be checked with the medical adviser and practising clinicians (docs/meetings/).
 
-| Пользователь | Задача | Что ему нужно от системы |
-|--------------|--------|--------------------------|
-| Врач первичного звена / эндокринолог | решить, направлять ли пациента к офтальмологу | понятная рекомендация и уровень уверенности |
-| Офтальмолог | приоритизировать поток снимков, проверить решение модели | стадия по ICDR, тепловая карта значимых областей |
-| Оператор скринингового пункта | загрузить снимок и получить результат | простой интерфейс, сообщение о непригодном снимке |
+## 3. Aim
 
-Перечень пользователей и их потребности — **допущение**, которое проверяется в беседах с медицинским консультантом и практикующими врачами (см. `docs/meetings/`).
+Develop and evaluate a research prototype that grades DR from fundus images using the ICDR scale and supports referral assessment with calibrated confidence and a visual explanation. Evaluate reliability on independent external data.
 
-## 3. Цель
+## 4. Objectives
 
-Разработать и оценить исследовательский прототип ассистента, который по снимку глазного дна определяет стадию ДР по шкале ICDR и рекомендует направление к офтальмологу, сопровождая результат калиброванной уверенностью и визуальным объяснением. Надёжность прототипа должна быть проверена на независимых внешних данных.
+1. Review the domain, literature and existing automated DR screening systems.
+2. Prepare APTOS 2019 and EyePACS for training/validation and IDRiD and Messidor-2 for external evaluation; perform EDA, preprocessing and leakage-free splitting.
+3. Train a ResNet50/EfficientNet baseline; investigate ordinal regression with threshold selection, class imbalance, augmentation and preprocessing.
+4. Evaluate internal/external performance and analyse deterioration across sources.
+5. Calibrate probabilities using temperature scaling and evaluate ECE.
+6. Generate Grad-CAM heatmaps and review them with the medical adviser.
+7. Implement a web service: upload, grade, confidence, heatmap and referral-related output.
+8. Test the system and prepare documentation and the thesis.
 
-## 4. Задачи
+## 5. Expected Results
 
-1. Проанализировать предметную область, литературу и существующие системы автоматического скрининга ДР.
-2. Подготовить данные: APTOS 2019 и EyePACS для обучения и валидации, IDRiD и Messidor-2 для внешней проверки; провести разведочный анализ, предобработку и разбиение без утечки данных.
-3. Обучить baseline (дообучение ResNet50 / EfficientNet) и улучшить его: порядковая регрессия с подбором порогов, учёт дисбаланса классов, аугментации, предобработка снимков.
-4. Оценить модель на внутренней и внешних выборках; измерить и объяснить падение качества при смене источника данных.
-5. Откалибровать вероятности (temperature scaling) и оценить калибровку (ECE).
-6. Построить карты Grad-CAM и разобрать их с медицинским консультантом.
-7. Реализовать веб-сервис: загрузка снимка → стадия, уверенность, тепловая карта, рекомендация.
-8. Протестировать систему и подготовить документацию и текст дипломной работы.
+| Deliverable | Criterion |
+|---|---|
+| Reproducible pipeline | README instructions produce comparable metrics |
+| DR grading model | Internal-test QWK >= 0.85: research target, not a commitment |
+| Evaluation report | Internal/external QWK, AUC, sensitivity at fixed specificity for referable DR, ECE |
+| Explainability analysis | Grad-CAM review with the adviser |
+| Web prototype | Upload-to-result workflow runs in Docker |
+| Documentation | Requirements, architecture, ADRs, verification plan and thesis |
 
-## 5. Ожидаемые результаты
+## 6. Scope
 
-| Результат | Критерий |
-|-----------|----------|
-| Воспроизводимый пайплайн обучения | запуск по инструкции из README даёт сопоставимые метрики |
-| Модель градации ДР | ориентир: QWK ≥ 0,85 на внутренней тестовой выборке (цель, не обязательство) |
-| Отчёт об оценке | QWK, AUC, чувствительность при фиксированной специфичности для referable DR, ECE — на внутренней и внешних выборках |
-| Анализ объяснимости | разбор карт Grad-CAM с медицинским консультантом |
-| Веб-прототип | сценарий «загрузка → результат» работает в Docker |
-| Документация | требования, архитектура, ADR, план верификации, текст ВКР |
+Included: five ICDR classes; separate binary research label DR >= 2 without independent macular-oedema detection; public datasets; external evaluation; calibration; Grad-CAM; REST API and simple web interface. Image-quality assessment is optional if time permits.
 
-## 6. Границы работы (scope)
+Excluded: lesion segmentation; other eye diseases such as glaucoma and AMD; mobile application; domain adaptation; clinical validation; medical-device registration; health-information-system integration.
 
-**Входит:**
+## 7. Constraints and Assumptions
 
-- градация ДР на 5 классов по ICDR и бинарное решение referable DR (стадия ≥ 2);
-- обучение на открытых датасетах, внешняя проверка на независимых;
-- калибровка уверенности и визуальное объяснение (Grad-CAM);
-- веб-сервис с REST API и простым интерфейсом;
-- опционально, при наличии времени: оценка пригодности снимка (качество изображения).
+- The prototype is for research and is not a medical device. Its output supports analysis and is not a diagnosis.
+- Public datasets will be used under their licences; identifiable patient data will not be processed.
+- Local development uses Apple Silicon and PyTorch MPS; larger experiments may require a rented GPU.
+- Public labels may contain noise, which must be considered when interpreting metrics.
 
-**Не входит:**
+## 8. Stages
 
-- сегментация поражений (микроаневризмы, экссудаты и т. п.);
-- другие патологии глаза (глаукома, ВМД и др.);
-- мобильное приложение;
-- методы доменной адаптации;
-- клиническая валидация, регистрация в качестве медицинского изделия, интеграция с медицинскими информационными системами.
+| Period | Stage | Checkpoint |
+|---|---|---|
+| 13-24 October 2026 | Analysis, requirements, architecture, verification planning | School package |
+| November-December 2026 | Data, EDA, baseline | pre-defense-1 |
+| January-February 2027 | Improvements, cross-dataset evaluation, calibration, Grad-CAM | pre-defense-2 |
+| March-April 2027 | Service, testing, adviser-assisted error analysis | To be scheduled |
+| April-May 2027 | Thesis and final preparation | final-pre-defense |
 
-## 7. Ограничения и допущения
+## References
 
-- **Прототип исследовательский** и не является медицинским изделием: результат — поддержка решения, а не диагноз.
-- Используются только открытые датасеты на условиях их лицензий; персональные данные пациентов не обрабатываются.
-- Вычислительные ресурсы: локально Mac на Apple Silicon (PyTorch MPS), для крупных экспериментов — арендованный GPU.
-- Разметка открытых датасетов может содержать шум. Это учитывается при интерпретации метрик.
+1. International Diabetes Federation. IDF Diabetes Atlas, 11th ed. Brussels, 2025. https://diabetesatlas.org/media/uploads/sites/3/2025/04/IDF_Atlas_11th_Edition_2025_Global-Factsheet.pdf
+2. Teo Z.L. et al. Global prevalence of diabetic retinopathy and projection of burden through 2045: systematic review and meta-analysis. Ophthalmology, 2021, 128(11):1580-1591.
+3. Wilkinson C.P. et al. Proposed international clinical diabetic retinopathy and diabetic macular edema disease severity scales. Ophthalmology, 2003, 110(9):1677-1682.
 
-## 8. Этапы
+The full reference list appears in the literature review.
 
-| Период | Этап | Контрольная точка |
-|--------|------|-------------------|
-| 13–24 окт 2026 | анализ, требования, архитектура, план верификации | пакет требований школы |
-| ноя – дек 2026 | данные, EDA, baseline | `pre-defense-1` |
-| янв – фев 2027 | улучшения, кросс-датасет, калибровка, Grad-CAM | `pre-defense-2` |
-| мар – апр 2027 | веб-сервис, тестирование, разбор ошибок с консультантом | — |
-| апр – май 2027 | текст ВКР, финальная подготовка | `final-pre-defense` |
+## Status Clarification: 20 October 2026
 
-## Источники
-
-1. International Diabetes Federation. *IDF Diabetes Atlas*, 11th ed. Brussels, 2025.
-2. Teo Z.L. et al. Global prevalence of diabetic retinopathy and projection of burden through 2045: systematic review and meta-analysis. *Ophthalmology*, 2021, 128(11): 1580–1591.
-3. Wilkinson C.P. et al. Proposed international clinical diabetic retinopathy and diabetic macular edema disease severity scales. *Ophthalmology*, 2003, 110(9): 1677–1682.
-
-Полный перечень источников — в обзоре литературы.
+The proposal describes the intended thesis outcome. The current package contains analytical documents and mockups; no model or service has been implemented and no metrics have been measured. DR >= 2 defines the ground-truth binary label. The predicted flag uses p2+p3+p4 and a fixed threshold; it is not equivalent to argmax grade >= 2 and does not assess DME. Rules appear in requirements.md and verification-plan.md. Dataset usage conditions must be confirmed before downloading; public accessibility does not imply unrestricted use.

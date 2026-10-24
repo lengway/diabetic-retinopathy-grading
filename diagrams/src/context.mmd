@@ -1,0 +1,5 @@
+flowchart LR
+ U[Clinician / operator] -->|image| S[DR Grading Assistant]
+ S -->|grade, confidence, binary flag, heatmap| U
+ A[Project author] -->|model version| S
+ D[Public data] -->|Offline training and evaluation| S

@@ -1,0 +1,128 @@
+{
+  "title": "Components and Data Flow",
+  "nodes": [
+    [
+      60,
+      165,
+      260,
+      110,
+      [
+        "Web UI",
+        "HTML / JS"
+      ]
+    ],
+    [
+      495,
+      165,
+      350,
+      110,
+      [
+        "FastAPI",
+        "Upload validation"
+      ]
+    ],
+    [
+      1030,
+      165,
+      300,
+      110,
+      [
+        "Preprocessing",
+        "crop / resize / norm"
+      ]
+    ],
+    [
+      1030,
+      410,
+      300,
+      140,
+      [
+        "PyTorch CNN",
+        "Logits + Grad-CAM"
+      ]
+    ],
+    [
+      495,
+      410,
+      350,
+      140,
+      [
+        "Postprocessing",
+        "Temperature / threshold",
+        "Response contract"
+      ]
+    ],
+    [
+      60,
+      410,
+      260,
+      140,
+      [
+        "Result UI",
+        "Grade and flag",
+        "Confidence / heatmap"
+      ]
+    ],
+    [
+      495,
+      660,
+      350,
+      100,
+      [
+        "Versioned artifacts",
+        "Weights / T / threshold / config"
+      ]
+    ]
+  ],
+  "edges": [
+    [
+      320,
+      220,
+      495,
+      220,
+      "file"
+    ],
+    [
+      845,
+      220,
+      1030,
+      220,
+      "RGB"
+    ],
+    [
+      1180,
+      275,
+      1180,
+      410,
+      "tensor"
+    ],
+    [
+      1030,
+      480,
+      845,
+      480,
+      "logits / heatmap"
+    ],
+    [
+      495,
+      480,
+      320,
+      480,
+      "JSON"
+    ],
+    [
+      670,
+      660,
+      670,
+      550,
+      "T / threshold"
+    ],
+    [
+      845,
+      710,
+      1180,
+      550,
+      "weights"
+    ]
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "System Context",
+  "nodes": [
+    [
+      60,
+      220,
+      280,
+      130,
+      [
+        "Clinician / operator",
+        "Upload and inspect"
+      ]
+    ],
+    [
+      500,
+      220,
+      380,
+      160,
+      [
+        "DR Grading Assistant",
+        "Grade | Confidence",
+        "Binary flag | Heatmap"
+      ]
+    ],
+    [
+      1050,
+      220,
+      290,
+      130,
+      [
+        "Project author",
+        "Training and evaluation"
+      ]
+    ],
+    [
+      500,
+      570,
+      380,
+      130,
+      [
+        "Public datasets",
+        "APTOS / EyePACS",
+        "IDRiD / Messidor-2"
+      ]
+    ]
+  ],
+  "edges": [
+    [
+      340,
+      280,
+      500,
+      280,
+      "image"
+    ],
+    [
+      500,
+      340,
+      340,
+      340,
+      "response"
+    ],
+    [
+      1050,
+      280,
+      880,
+      280,
+      "model version"
+    ],
+    [
+      690,
+      570,
+      690,
+      380,
+      "Offline evaluation"
+    ]
+  ]
+}

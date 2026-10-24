@@ -1,0 +1,6 @@
+flowchart LR
+ U[Clinician / operator] --- C1([UC-01 Upload image])
+ U --- C2([UC-02 Inspect result])
+ U --- C3([UC-03 Correct error])
+ A[Project author] --- C4([UC-04 Evaluate and release model])
+ C4 -->|model version for result| C2

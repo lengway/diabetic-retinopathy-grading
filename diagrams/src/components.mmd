@@ -1,0 +1,8 @@
+flowchart LR
+ UI[Web UI] -->|file| API[FastAPI / validation]
+ API -->|RGB| PRE[Preprocessing]
+ PRE -->|tensor| CNN[PyTorch CNN and Grad-CAM]
+ CNN -->|logits and heatmap| POST[Postprocessing / T / threshold]
+ POST -->|JSON| OUT[Result screen]
+ ART[Versioned artifacts] -->|weights| CNN
+ ART -->|T and threshold| POST
